@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator 1.2.6 by tumba25 (offline version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Hide Users of a specified group (HUG)]]></title>
+		<description lang="en"><![CDATA[This will hide users of a group from being viewed in the member list, the team, and their user profile.]]></description>
+		<author-notes lang="en"><![CDATA[The group must be a hidden group!!
+
+Note change the $sql_where AND u.group_id!=10 to include your user group
+
+This will change in the future to include an ACP setting to select group or an option within each group to hide users from viewing]]></author-notes>
+		<github><![CDATA[https://github.com/pertneer/hug]]></github>
+		<author-group>
+			<author>
+				<username><![CDATA[Pertneer]]></username>
+			</author>
+		</author-group>
+		<mod-version>0.0.1</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>300</time>
+			<target-version>3.0.11</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2013-01-07</date>
+				<rev-version>0.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Initial Release]]></change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+	<action-group>
+		<open src="memberlist.php">
+			<edit>
+				<find><![CDATA[AND u.group_id = g.group_id,]]></find>
+				<action type="replace-with"><![CDATA[AND u.group_id = g.group_id AND u.group_id!=10',]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[if (!$member)]]></find>
+				<action type="replace-with"><![CDATA[if (!$member || $member['group_id'] == 10)]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$sql = "SELECT u.user_id]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[$sql_where]]></inline-find>
+					<inline-action type="replace-with"><![CDATA[$sql_where AND u.group_id!=10]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[Note change the "$sql_where AND u.group_id!=10" to include your user group]]></diy-instructions>
+	</action-group>
+</mod>
