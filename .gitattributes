@@ -6,3 +6,4 @@
 *.xml text eol=lf
 =======
 *.* text eol=lf
+!*.JPG text eol=lf
