@@ -19,13 +19,20 @@ This will change in the future to include an ACP setting to select group or an o
 				<username><![CDATA[Pertneer]]></username>
 			</author>
 		</author-group>
-		<mod-version>0.0.1</mod-version>
+		<mod-version>0.0.2</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
 			<target-version>3.0.11</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2013-01-07</date>
+				<rev-version>0.0.2</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fixed find errors]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2013-01-07</date>
 				<rev-version>0.0.1</rev-version>
