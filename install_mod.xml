@@ -10,7 +10,7 @@
 		<description lang="en"><![CDATA[This will hide users of a group from being viewed in the member list, the team, and their user profile.]]></description>
 		<author-notes lang="en"><![CDATA[The group must be a hidden group!!
 
-Note change the $sql_where AND u.group_id!=10 to include your user group
+Note change the $sql_where AND u.group_id!=8 to include your user group
 
 This will change in the future to include an ACP setting to select group or an option within each group to hide users from viewing]]></author-notes>
 		<github><![CDATA[https://github.com/pertneer/hug]]></github>
@@ -38,18 +38,22 @@ This will change in the future to include an ACP setting to select group or an o
 	<action-group>
 		<open src="memberlist.php">
 			<edit>
-				<find><![CDATA[AND u.group_id = g.group_id,]]></find>
-				<action type="replace-with"><![CDATA[AND u.group_id = g.group_id AND u.group_id!=10',]]></action>
+				<find><![CDATA[AND u.group_id = g.group_id',]]></find>
+				<action type="replace-with"><![CDATA[AND u.group_id = g.group_id AND u.group_id!=8',]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[if (!$member)]]></find>
-				<action type="replace-with"><![CDATA[if (!$member || $member['group_id'] == 10)]]></action>
+				<action type="replace-with"><![CDATA[if (!$member || $member['group_id'] == 8)]]></action>
 			</edit>
 			<edit>
-				<find><![CDATA[$sql = "SELECT u.user_id]]></find>
+				<find><![CDATA[		$sql = "SELECT u.user_id
+			FROM " . USERS_TABLE . " u
+				$sql_from
+			WHERE u.user_type IN (" . USER_NORMAL . ', ' . USER_FOUNDER . ")
+				$sql_where]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[$sql_where]]></inline-find>
-					<inline-action type="replace-with"><![CDATA[$sql_where AND u.group_id!=10]]></inline-action>
+					<inline-action type="replace-with"><![CDATA[$sql_where AND u.group_id!=8]]></inline-action>
 				</inline-edit>
 			</edit>
 		</open>
